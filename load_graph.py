@@ -1,16 +1,13 @@
 """
 This module loads the road network graph from CSV files and provides a summary of its properties.
 """
+__all__ = ['load_graph', 'add_chargers', 'print_graph_summary']
 
 import pandas as pd
 import networkx as nx
 # import matplotlib.pyplot as plt
 
-NODES = pd.read_csv('data/nodes.csv')
-EDGES = pd.read_csv('data/edges.csv')
-CHARGERS = pd.read_csv('data/chargers.csv')
-
-def load_graph(nodes, edges):
+def load_graph(nodes, edges, chargers):
 
     G = nx.DiGraph()
 
@@ -29,11 +26,7 @@ def load_graph(nodes, edges):
         if row['is_bidirectional']:
             G.add_edge(row['to_id'], row['from_id'],
                        distance=row['distance_km'])
-
-    return G
-
-
-def add_chargers(G, chargers):
+            
     for _, row in chargers.iterrows():
         nid = row['node_id']
         if nid not in G:
@@ -42,6 +35,8 @@ def add_chargers(G, chargers):
         G.nodes[nid]['is_charger'] = True
         G.nodes[nid]['charge_rate_kw'] = row['charge_rate_kw']
         G.nodes[nid]['price_per_kwh'] = row['price_per_kwh']
+
+    return G
 
 
 def print_graph_summary(G):
@@ -66,7 +61,10 @@ def print_graph_summary(G):
 
 
 if __name__ == "__main__":
-    G = load_graph(NODES, EDGES)
-    add_chargers(G, CHARGERS)
+    nodes = pd.read_csv('data/nodes.csv')
+    edges = pd.read_csv('data/edges.csv')
+    chargers = pd.read_csv('data/chargers.csv')
+    
+    G = load_graph(nodes, edges, chargers)
     print_graph_summary(G)
-    # show_graph(NODES, G)
+    # show_graph(nodes, G)
