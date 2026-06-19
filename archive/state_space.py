@@ -1,3 +1,7 @@
+"""
+ARCHIVED: This module is archived and should not be used in the current implementation. It was part of an earlier version of the project and has been replaced by a more efficient and modular approach (see dijkstra_ev.py / ev_model.py). The code below is kept for reference purposes only.
+"""
+
 __all__ = ['build_state_space']
 
 import networkx as nx
