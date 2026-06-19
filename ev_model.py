@@ -12,7 +12,11 @@ class VehicleParams:
     avg_speed_kmh: float = 100.0
     soc_levels: int = 20
     w_cost: float = 1.0
-    w_time: float = 0.05
+    value_of_time_per_hour: float = 18.0  # USD/hr, roughly half the US median wage
+
+    @property
+    def w_time(self) -> float:
+        return self.value_of_time_per_hour * self.w_cost
 
 
 def level_kwh(p: VehicleParams) -> float:
