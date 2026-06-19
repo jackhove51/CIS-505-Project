@@ -3,11 +3,31 @@ This module loads the road network graph from CSV files and provides a summary o
 """
 __all__ = ['load_graph', 'add_chargers', 'print_graph_summary']
 
+import functools
 import pandas as pd
 import networkx as nx
 # import matplotlib.pyplot as plt
 
-def load_graph(nodes, edges, chargers):
+
+@functools.cache
+def get_nodes_df():
+    return pd.read_csv('data/nodes.csv')
+
+
+@functools.cache
+def get_edges_df():
+    return pd.read_csv('data/edges.csv')
+
+
+@functools.cache
+def get_chargers_df():
+    return pd.read_csv('data/chargers.csv')
+
+
+def load_graph():
+    nodes = get_nodes_df()
+    edges = get_edges_df()
+    chargers = get_chargers_df()
 
     G = nx.DiGraph()
 
@@ -61,10 +81,6 @@ def print_graph_summary(G):
 
 
 if __name__ == "__main__":
-    nodes = pd.read_csv('data/nodes.csv')
-    edges = pd.read_csv('data/edges.csv')
-    chargers = pd.read_csv('data/chargers.csv')
-    
-    G = load_graph(nodes, edges, chargers)
+    G = load_graph()
     print_graph_summary(G)
     # show_graph(nodes, G)

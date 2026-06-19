@@ -15,7 +15,7 @@ from ev_model import (
     reserve_level,
     start_level,
 )
-from load_graph import CHARGERS, EDGES, NODES, add_chargers, load_graph
+from load_graph import load_graph
 
 
 @dataclass
@@ -341,8 +341,7 @@ def _print_t8(r: PruningResult, G: nx.DiGraph) -> None:
 
 
 if __name__ == "__main__":
-    G = load_graph(NODES, EDGES)
-    add_chargers(G, CHARGERS)
+    G = load_graph()
     params = VehicleParams()
 
     print("\n### Chicago (0) -> Cleveland (4) ###")

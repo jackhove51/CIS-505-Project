@@ -14,7 +14,7 @@ from ev_model import (
     reserve_level,
     start_level,
 )
-from load_graph import CHARGERS, EDGES, NODES, add_chargers, load_graph
+from load_graph import load_graph
 
 State = tuple[int, int]
 
@@ -258,8 +258,7 @@ def print_itinerary(result: SearchResult, G: nx.DiGraph, params: VehicleParams) 
 
 
 if __name__ == "__main__":
-    G = load_graph(NODES, EDGES)
-    add_chargers(G, CHARGERS)
+    G = load_graph()
 
     SOURCE, TARGET = 0, 4
     params = VehicleParams()
