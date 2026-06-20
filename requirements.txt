@@ -2,3 +2,5 @@ pandas
 geopy
 networkx
 matplotlib
+numpy
+pytest
