@@ -1,7 +1,7 @@
 """
 This module loads the road network graph from CSV files and provides a summary of its properties.
 """
-__all__ = ['load_graph', 'add_chargers', 'print_graph_summary']
+__all__ = ['load_graph', 'print_graph_summary']
 
 import functools
 import pandas as pd
